@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Home, Grid, BadgePercent, ShoppingCart } from "lucide-react";
+import { Home, Grid, CircleUserRound, ShoppingCart } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 export default function BottomNav() {
@@ -11,7 +11,7 @@ export default function BottomNav() {
   const navItems = [
     { id: "/", label: "Home", icon: <Home size={22} /> },
     { id: "/category", label: "Categories", icon: <Grid size={22} /> },
-    { id: "/deals", label: "Deals", icon: <BadgePercent size={22} /> },
+    { id: "/profile", label: "profile", icon: <CircleUserRound  size={22} /> },
     { id: "/cart", label: "Cart", icon: <ShoppingCart size={22} /> },
   ];
 

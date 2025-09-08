@@ -4,11 +4,15 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Cart from "./pages/Cart";
-import Suman from "./pages/suman";
+
+import Footer from "./components/Footer";
 import BottomNav from "./components/BottomNav";
+import ProfilePage from "./pages/ProfilePage";
+import Category from "./pages/Category";
 const App = () => {
   const location = useLocation();
-  const hideHeaderRoutes = ["/cart", "/login","/suman"];
+  const hideHeaderRoutes = ["/cart", "/login","/suman","/profile"];
+  const bottomnavRoutes = ["/", "/cart", "/profile", "/category"];
 
   return (
     <div>
@@ -17,9 +21,11 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/suman" element={<Suman />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/category" element={<Category />} />
       </Routes>
-      <BottomNav/>
+      <Footer/>
+      {bottomnavRoutes.includes(location.pathname) && <BottomNav />}
     </div>
   );
 };
