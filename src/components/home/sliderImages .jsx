@@ -237,7 +237,7 @@ const ImageSlider = () => {
           onTouchEnd={handleTouchEnd}
         >
           {!imagesLoaded && (
-            <div className="w-full h-48 md:h-64 lg:h-80 flex items-center justify-center">
+            <div className="w-full h-46 md:h-64 lg:h-80 flex items-center justify-center">
               <div className="animate-pulse text-gray-500">Loading images...</div>
             </div>
           )}
@@ -265,7 +265,7 @@ const ImageSlider = () => {
                   <img
                     src={sliderImages[activeIndex].mobile}
                     alt={`Slide ${activeIndex + 1}`}
-                    className="w-full h-46 md:h-40 lg:h-62  object-cover rounded-xl"
+                    className="w-full h-46 md:h-40 lg:h-62  object-fit rounded-xl"
                   />
                   {/* ✅ Alternative option:
                       className="w-full aspect-[16/9] object-cover rounded-xl"
