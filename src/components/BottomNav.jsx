@@ -34,7 +34,7 @@ export default function BottomNav() {
       initial={{ y: 100 }}
       animate={{ y: show ? 0 : 100 }}
       transition={{ duration: 0.35 }}
-      className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md shadow-xl rounded-t-2xl border-t z-50 block md:hidden"
+      className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md shadow-xl rounded-t-2xl border-t border-gray-300 z-50 block md:hidden"
     >
       <div className="flex justify-around py-3">
         {navItems.map((item) => {

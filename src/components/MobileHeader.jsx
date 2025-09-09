@@ -188,7 +188,7 @@ const MobileHeader = ({
               onClick={handleLoginClick}
               className="p-2 rounded-full hover:bg-white/20 transition-colors duration-300"
             >
-              <CircleUserRound  size={22} />
+              <CircleUserRound  size={28} />
             </button>
           </div>
         </div>

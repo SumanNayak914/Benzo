@@ -14,6 +14,7 @@ const App = () => {
   const hideHeaderRoutes = ["/cart", "/login","/suman","/profile"];
   const bottomnavRoutes = ["/", "/cart", "/profile", "/category"];
 
+  const hideFooterRoutes = ["/cart", "/login","/profile"];
   return (
     <div>
       {!hideHeaderRoutes.includes(location.pathname) && <Header />}
@@ -24,7 +25,7 @@ const App = () => {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/category" element={<Category />} />
       </Routes>
-      <Footer/>
+     {!hideFooterRoutes.includes(location.pathname) && <Footer />}
       {bottomnavRoutes.includes(location.pathname) && <BottomNav />}
     </div>
   );

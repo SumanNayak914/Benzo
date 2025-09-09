@@ -1,332 +1,231 @@
-// import React, { useState, useEffect } from "react";
-// import { motion, AnimatePresence } from "framer-motion";
 
-// const sliderImages = [
-//   {
-//     id: 1,
-//     img: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=500&q=80",
-//   },
-//   {
-//     id: 2,
-//     img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500&q=80",
-//   },
-//   {
-//     id: 3,
-//     img: "https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=500&q=80",
-//   },
-//   {
-//     id: 4,
-//     img: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=500&q=80",
-//   },
-// ];
-
-// const ImageSlider = () => {
-//   const [activeIndex, setActiveIndex] = useState(0);
-//   const [direction, setDirection] = useState(1);
-
-//   // Auto change every 3s
-//   useEffect(() => {
-//     const interval = setInterval(() => {
-//       setActiveIndex((prev) => (prev + 1) % sliderImages.length);
-//     }, 3000);
-//     return () => clearInterval(interval);
-//   }, []);
-
-//   const slideVariants = {
-//     enter: (direction) => ({
-//       x: direction > 0 ? "100%" : "-100%",
-//       opacity: 0,
-//     }),
-//     center: { x: 0, opacity: 1 },
-//     exit: (direction) => ({
-//       x: direction > 0 ? "-100%" : "100%",
-//       opacity: 0,
-//     }),
-//   };
-
-//   return (
-//     <div className="w-full my-4 px-3  ">
-//       <div className="relative w-full h-[22vh] overflow-hidden rounded-lg shadow-md">
-//         <AnimatePresence mode="wait" custom={direction}>
-//           <motion.div
-//             key={activeIndex}
-//             custom={direction}
-//             variants={slideVariants}
-//             initial="enter"
-//             animate="center"
-//             exit="exit"
-//             transition={{
-//               x: { type: "spring", stiffness: 300, damping: 30 },
-//               opacity: { duration: 0.3 },
-//             }}
-//             className="absolute inset-0 w-full h-full"
-//           >
-//             <img
-//               src={sliderImages[activeIndex].img}
-//               alt={`Slide ${activeIndex + 1}`}
-//               className="w-full h-full object-cover"
-//             />
-//           </motion.div>
-//         </AnimatePresence>
-//       </div>
-
-//       {/* ---------- Dots/Active Bar ---------- */}
-//       <div className="flex justify-center mt-3 gap-2">
-//         {sliderImages.map((_, i) =>
-//           i === activeIndex ? (
-//             <motion.div
-//               key={i}
-//               onClick={() => setActiveIndex(i)}
-//               className="relative h-[6px] w-10 bg-gray-300 rounded-full overflow-hidden cursor-pointer"
-//             >
-//               <motion.div
-//                 className="absolute top-0 left-0 h-full bg-black"
-//                 initial={{ width: "0%" }}
-//                 animate={{ width: "100%" }}
-//                 transition={{ duration: 3, ease: "linear" }}
-//               />
-//             </motion.div>
-//           ) : (
-//             <div
-//               key={i}
-//               onClick={() => setActiveIndex(i)}
-//               className="w-2 h-2 bg-gray-400 rounded-full cursor-pointer"
-//             />
-//           )
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default ImageSlider;
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import banar1 from "../../assets/banar1.png"; 
+import banar1 from "../../assets/banar1.png";
 import banar2 from "../../assets/banar2.png";
 import banar3 from "../../assets/banar3.png";
 import banar4 from "../../assets/banar4.png";
-import banar5 from "../../assets/banar5.png"; 
-import banar6 from "../../assets/banar6.png"; 
+import banar5 from "../../assets/banar5.png";
+import banar6 from "../../assets/banar6.png";
 
 const sliderImages = [
-  {
-    id: 1,
-    img: banar4,
-    mobile: banar1, 
-  },
-  {
-    id: 2,
-    img: banar5,
-    mobile:banar2,
-  },
-  {
-    id: 3,
-    img:banar6,
-    mobile: banar3,
-  },
-  
-];;
+  { id: 1, img: banar4, mobile: banar1 },
+  { id: 2, img: banar5, mobile: banar2 },
+  { id: 3, img: banar6, mobile: banar3 },
+];
 
 const ImageSlider = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [direction, setDirection] = useState(1);
-  const [touchStart, setTouchStart] = useState(null);
-  const [touchEnd, setTouchEnd] = useState(null);
-  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(1); // start from 1 because of clones
+  const [progress, setProgress] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(true);
+  const [allImagesLoaded, setAllImagesLoaded] = useState(false);
 
-  // Preload all images
+  const SLIDE_DURATION = 3000; // 3 seconds
+  const TRANSITION_DURATION = 500;
+
+  const sliderRef = useRef(null);
+
+  // Add clone: [last, ...slides, first]
+  const infiniteSlides = [
+    sliderImages[sliderImages.length - 1],
+    ...sliderImages,
+    sliderImages[0],
+  ];
+
+  // Preload images
   useEffect(() => {
-    const imagePromises = sliderImages.map((slide) => {
-      return new Promise((resolve, reject) => {
-        const img = new Image();
-        const mobileImg = new Image();
-        let loadedCount = 0;
+    let loadedCount = 0;
+    const totalImages = sliderImages.length * 2;
 
-        const checkComplete = () => {
-          loadedCount++;
-          if (loadedCount === 2) resolve();
-        };
+    sliderImages.forEach((slide) => {
+      const img = new Image();
+      const mobileImg = new Image();
 
-        img.onload = checkComplete;
-        img.onerror = reject;
-        mobileImg.onload = checkComplete;
-        mobileImg.onerror = reject;
+      const checkComplete = () => {
+        loadedCount++;
+        if (loadedCount >= totalImages) {
+          setAllImagesLoaded(true);
+        }
+      };
 
-        img.src = slide.img;
-        mobileImg.src = slide.mobile;
-      });
+      img.onload = img.onerror = checkComplete;
+      mobileImg.onload = mobileImg.onerror = checkComplete;
+
+      img.src = slide.img;
+      mobileImg.src = slide.mobile;
     });
-
-    Promise.all(imagePromises)
-      .then(() => setImagesLoaded(true))
-      .catch(() => setImagesLoaded(true)); // Continue even if some images fail
   }, []);
 
-  // Auto change every 4s - only start after images are loaded
+  // Progress + Auto-slide
   useEffect(() => {
-    if (!imagesLoaded) return;
+    if (!allImagesLoaded) return;
 
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [activeIndex, imagesLoaded]);
+    let startTime = Date.now();
+    let frame;
 
-  const nextSlide = () => {
-    setDirection(1);
-    setActiveIndex((prev) => (prev + 1) % sliderImages.length);
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const percent = Math.min((elapsed / SLIDE_DURATION) * 100, 100);
+      setProgress(percent);
+
+      if (elapsed >= SLIDE_DURATION) {
+        goToNext();
+        startTime = Date.now();
+        setProgress(0);
+      }
+
+      frame = requestAnimationFrame(animate);
+    };
+
+    frame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frame);
+  }, [currentIndex, allImagesLoaded]);
+
+  const goToNext = () => {
+    setIsTransitioning(true);
+    setCurrentIndex((prev) => prev + 1);
   };
 
-  const prevSlide = () => {
-    setDirection(-1);
-    setActiveIndex((prev) => (prev - 1 + sliderImages.length) % sliderImages.length);
+  const goToPrev = () => {
+    setIsTransitioning(true);
+    setCurrentIndex((prev) => prev - 1);
   };
 
-  const goToSlide = (index) => {
-    setDirection(index > activeIndex ? 1 : -1);
-    setActiveIndex(index);
-  };
+  // Handle infinite loop jump
+  useEffect(() => {
+    if (currentIndex === 0) {
+      // jumped to clone of last
+      setTimeout(() => {
+        setIsTransitioning(false);
+        setCurrentIndex(sliderImages.length);
+      }, TRANSITION_DURATION);
+    } else if (currentIndex === infiniteSlides.length - 1) {
+      // jumped to clone of first
+      setTimeout(() => {
+        setIsTransitioning(false);
+        setCurrentIndex(1);
+      }, TRANSITION_DURATION);
+    }
+  }, [currentIndex, infiniteSlides.length]);
 
-  // Touch handlers
+  // Touch swipe
+  const touchStart = useRef(null);
   const handleTouchStart = (e) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
+    touchStart.current = e.targetTouches[0].clientX;
   };
-
-  const handleTouchMove = (e) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > 50;
-    const isRightSwipe = distance < -50;
-
-    if (isLeftSwipe) {
-      nextSlide();
+  const handleTouchEnd = (e) => {
+    if (!touchStart.current) return;
+    const diff = touchStart.current - e.changedTouches[0].clientX;
+    if (diff > 50) {
+      goToNext();
+      setProgress(0);
     }
-    if (isRightSwipe) {
-      prevSlide();
+    if (diff < -50) {
+      goToPrev();
+      setProgress(0);
     }
+    touchStart.current = null;
   };
 
-  const slideVariants = {
-    enter: (direction) => ({
-      x: direction > 0 ? "100%" : "-100%",
-      opacity: 0,
-    }),
-    center: { x: 0, opacity: 1 },
-    exit: (direction) => ({
-      x: direction > 0 ? "-100%" : "100%",
-      opacity: 0,
-    }),
+  // Get actual index for dots
+  const getActualIndex = () => {
+    if (currentIndex === 0) return sliderImages.length - 1;
+    if (currentIndex === infiniteSlides.length - 1) return 0;
+    return currentIndex - 1;
   };
+
+  if (!allImagesLoaded) {
+    return (
+      <div className="w-full my-4 px-3 lg:max-w-7xl lg:mx-auto">
+        <div className="relative">
+          <div className="w-full h-46 md:h-64 lg:h-80 flex items-center justify-center bg-gray-100 rounded-xl">
+            <div className="animate-pulse text-gray-500">Loading images...</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full my-4 px-3 lg:max-w-7xl lg:mx-auto">
       <div className="relative group">
-        {/* Image Container */}
+        {/* Images */}
         <div
-          className="relative w-full overflow-hidden rounded-xl shadow-lg bg-gray-200"
+          className="relative w-full overflow-hidden rounded-xl shadow-lg h-46 md:h-40 lg:h-62"
           onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          {!imagesLoaded && (
-            <div className="w-full h-46 md:h-64 lg:h-80 flex items-center justify-center">
-              <div className="animate-pulse text-gray-500">Loading images...</div>
-            </div>
-          )}
-
-          {imagesLoaded && (
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={activeIndex}
-                custom={direction}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{
-                  x: { type: "spring", stiffness: 300, damping: 30 },
-                  opacity: { duration: 0.2 },
-                }}
-                className="w-full"
-              >
+          <div
+            ref={sliderRef}
+            className="flex h-full"
+            style={{
+              transform: `translateX(-${currentIndex * 100}%)`,
+              transition: isTransitioning
+                ? `transform ${TRANSITION_DURATION}ms ease-in-out`
+                : "none",
+            }}
+          >
+            {infiniteSlides.map((slide, i) => (
+              <div key={i} className="w-full h-full flex-shrink-0">
                 <picture>
-                  <source
-                    media="(min-width: 768px)"
-                    srcSet={sliderImages[activeIndex].img}
-                  />
+                  <source media="(min-width:768px)" srcSet={slide.img} />
                   <img
-                    src={sliderImages[activeIndex].mobile}
-                    alt={`Slide ${activeIndex + 1}`}
-                    className="w-full h-46 md:h-40 lg:h-62  object-fit rounded-xl"
+                    src={slide.mobile}
+                    alt={`Slide ${i}`}
+                    className="w-full h-full object-fit rounded-xl"
                   />
-                  {/* ✅ Alternative option:
-                      className="w-full aspect-[16/9] object-cover rounded-xl"
-                      (yeh height ki jagah aspect ratio lock karega) */}
                 </picture>
-              </motion.div>
-            </AnimatePresence>
-          )}
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Navigation Arrows */}
-        {imagesLoaded && (
-          <>
-            <button
-              onClick={prevSlide}
-              className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 p-2 rounded-full shadow-lg transition-all duration-200 opacity-0 group-hover:opacity-100 items-center justify-center backdrop-blur-sm"
-            >
-              <ChevronLeft size={20} />
-            </button>
-
-            <button
-              onClick={nextSlide}
-              className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 p-2 rounded-full shadow-lg transition-all duration-200 opacity-0 group-hover:opacity-100 items-center justify-center backdrop-blur-sm"
-            >
-              <ChevronRight size={20} />
-            </button>
-          </>
-        )}
+        {/* Arrows */}
+        <button
+          onClick={() => {
+            goToPrev();
+            setProgress(0);
+          }}
+          className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 p-2 rounded-full shadow-lg transition-all duration-200 opacity-0 group-hover:opacity-100 items-center justify-center backdrop-blur-sm z-20"
+        >
+          <ChevronLeft size={20} />
+        </button>
+        <button
+          onClick={() => {
+            goToNext();
+            setProgress(0);
+          }}
+          className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 p-2 rounded-full shadow-lg transition-all duration-200 opacity-0 group-hover:opacity-100 items-center justify-center backdrop-blur-sm z-20"
+        >
+          <ChevronRight size={20} />
+        </button>
       </div>
 
-      {/* Dots Indicator */}
-      {imagesLoaded && (
-        <div className="flex justify-center items-center mt-4 gap-2">
-          {sliderImages.map((_, i) =>
-            i === activeIndex ? (
-              <motion.div
-                key={i}
-                onClick={() => goToSlide(i)}
-                className="relative h-1 w-12 bg-gray-300 rounded-full overflow-hidden cursor-pointer flex items-center"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <motion.div
+      {/* Dots */}
+      <div className="flex justify-center items-center mt-4 gap-2">
+        {sliderImages.map((_, i) => {
+          const isActive = i === getActualIndex();
+          return (
+            <div
+              key={i}
+              onClick={() => {
+                setCurrentIndex(i + 1); // offset by 1 due to clones
+                setProgress(0);
+              }}
+              className={`relative cursor-pointer rounded-full transition-all duration-300 ${
+                isActive ? "w-10 h-1 bg-gray-300" : "w-1.5 h-1.5 bg-gray-400"
+              }`}
+            >
+              {isActive && (
+                <div
                   className="absolute top-0 left-0 h-full bg-black rounded-full"
-                  initial={{ width: "0%" }}
-                  animate={{ width: "100%" }}
-                  transition={{ duration: 4, ease: "linear" }}
+                  style={{ width: `${progress}%` }}
                 />
-              </motion.div>
-            ) : (
-              <motion.div
-                key={i}
-                onClick={() => goToSlide(i)}
-                className="w-1.5 h-1.5 bg-gray-400 hover:bg-black rounded-full cursor-pointer transition-colors duration-200"
-                whileHover={{ scale: 1.3 }}
-                whileTap={{ scale: 0.9 }}
-              />
-            )
-          )}
-        </div>
-      )}
+              )}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

@@ -7,7 +7,7 @@ import ToggleFAQ from "../components/Profile/ToggleFAQ";
 import ReferralComponent from "../components/Profile/ReferralComponent";
 import AddressComponent from "../components/Profile/AddressComponent";
 import ProfileForm from "../components/Profile/ProfileForm";
-import BalanceComponent from "../components/Profile/BalanceComponent";
+// import BalanceComponent from "../components/Profile/BalanceComponent";
 
 const ProfilePage = () => {
   const [activeComponent, setActiveComponent] = useState('orders');
@@ -25,8 +25,8 @@ const ProfilePage = () => {
         return <AddressComponent />;
       case 'profile':
         return <ProfileForm />;
-      case 'balance':
-        return <BalanceComponent />;
+      // case 'balance':
+      //   return <BalanceComponent />;
       case 'faq':
         return <ToggleFAQ />;
       default:

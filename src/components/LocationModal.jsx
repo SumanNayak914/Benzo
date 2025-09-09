@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { X, ArrowLeft } from "lucide-react";
 
@@ -28,15 +27,23 @@ const LocationModal = ({ onClose }) => {
       {/* Current Location */}
       <div className="px-4">
         <div className="flex items-center justify-between border rounded-xl p-4 mb-3 shadow-sm">
-          <div>
-            <p className="font-medium text-pink-600">Use My Current Location</p>
+          <div className="flex flex-col">
+            <p className="font-medium text-pink-600">Enter Your PIN Code</p>
             <p className="text-gray-500 text-sm">
-              Enable your current location for better services
+              Provide your delivery PIN code to check service availability
             </p>
           </div>
-          <button className="border border-pink-500 text-pink-600 px-4 py-1 rounded-full text-sm">
-            Enable
-          </button>
+          <div className="flex items-center gap-2">
+            <input
+              type="text"
+              placeholder="Enter PIN"
+              maxLength={6}
+              className="border border-gray-300 rounded-lg px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
+            />
+            <button className="bg-pink-600 text-white px-4 py-1 rounded-full text-sm">
+              Check
+            </button>
+          </div>
         </div>
 
         {/* Add New Address */}

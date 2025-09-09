@@ -12,7 +12,7 @@ const Sidebar = ({ activeComponent, setActiveComponent }) => {
           </div>
           <div>
             <h3 className="font-semibold text-gray-900">Suman</h3>
-            <p className="text-sm text-gray-500">7894487914</p>
+            <p className="text-sm text-gray-500">3761876320</p>
           </div>
         </div>
 
@@ -51,13 +51,7 @@ const Sidebar = ({ activeComponent, setActiveComponent }) => {
         </div>
 
         {/* Available Balance */}
-        <div className="flex items-center justify-between">
-          <span className="text-sm text-gray-600">Available Balance: ₹0</span>
-          <button className="bg-black text-white px-4 py-2 rounded-lg text-sm hover:bg-gray-800 transition-colors"
-          onClick={() => setActiveComponent('balance')}>
-            Add Balance
-          </button>
-        </div>
+        
 
         {/* Free Cash Banner */}
         <div 
@@ -141,10 +135,10 @@ const Sidebar = ({ activeComponent, setActiveComponent }) => {
       {/* Bottom Section */}
       <div className="space-y-4">
         {/* Logout */}
-        <div className=" pt-4">
-          <div className="flex items-center justify-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 cursor-pointer rounded-lg transition-colors">
-            <LogOut className=" h-4 w-4  text-gray-500" />
-            <p className="font-bold  text-gray-500 text-lg">Log Out</p>
+        <div className=" pt-4 justify-center flex border-t border-gray-200">
+          <div className="flex items-center w-fit justify-center px-2 py-2 text-sm text-black hover:bg-gray-50 cursor-pointer rounded-lg border transition-colors">
+            <LogOut className=" h-6 w-4  text-black" />
+            <button className="font-bold  text-black text-lg pl-2">Log Out</button>
           </div>
         </div>
 
