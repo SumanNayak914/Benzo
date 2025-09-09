@@ -132,7 +132,7 @@ const DesktopHeader = ({
                 className="text-white font-semibold text-lg bg-blue-600 rounded-full py-1.5 px-4 text-center cursor-pointer"
                 onClick={() => handleCategoryClick(0, '/')}
               >
-                Benzo
+                CrateEasy
               </div>
               <div className="bg-green-100 text-green-600 px-3 py-1.5 rounded-full text-xs font-medium">
                 Fresh & Cold
@@ -150,7 +150,7 @@ const DesktopHeader = ({
             </div>
 
             {/* Search Bar */}
-            <div className="flex-1 max-w-2xl mx-4">
+            <div className="flex-1    max-w-2xl mx-4">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
@@ -185,7 +185,7 @@ const DesktopHeader = ({
             </div>
 
             {/* User Actions */}
-            <div className="flex items-center space-x-6 pr-6">
+            <div className="flex items-center space-x-6 pr-6 ">
               <div 
                 className="flex items-center space-x-1 cursor-pointer hover:text-blue-600 transition-colors"
                 onClick={() => setIsLoginOpen(true)}
@@ -194,11 +194,11 @@ const DesktopHeader = ({
                 <span className="text-gray-700 font-medium">Login</span>
               </div>
               <div 
-                className="flex items-center space-x-1 cursor-pointer hover:text-blue-600 transition-colors"
+                className="flex items-center space-x-1 cursor-pointer hover:text-blue-600 transition-colors "
                 onClick={() => setIsCartOpen(true)}
               >
                 <ShoppingCart className="w-5 h-5" />
-                <span className="text-gray-700 font-medium">Cart</span>
+                <span className="text-gray-700 font-medium ">Cart</span>
               </div>
             </div>
           </div>

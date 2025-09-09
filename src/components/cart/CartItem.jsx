@@ -15,8 +15,8 @@ const CartItem = () => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 max-w-md mx-auto">
-      {/* Delivery Time Header */}
+    <div className="bg-white  shadow-sm border border-gray-100 p-4 max-w-md mx-auto">
+     
       <div className="flex items-center gap-2 mb-4">
         <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
           <Clock className="w-4 h-4 text-green-600" />

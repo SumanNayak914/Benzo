@@ -8,7 +8,7 @@ import CartSummary from "../components/cart/CartSummary";
 
 export default function Cart() {
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-gray-100 min-h-screen  ">
       <CartHeader />
       <CartItem />
       <CartSavings />

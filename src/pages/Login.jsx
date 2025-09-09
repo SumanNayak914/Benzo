@@ -37,7 +37,7 @@ export default function Login({ onClose }) { // Add onClose prop
   return (
     <div className="flex items-center justify-center ">
       <div
-        className="flex  w-full lg:rounded-3xl overflow-hidden  lg:flex-row flex-col"
+        className="flex  w-full lg:rounded-3xl overflow-hidden  md:flex-row flex-col"
         style={{
           background: 'rgba(255, 255, 255, 0.1)',
           backdropFilter: 'blur(10px)',
@@ -52,20 +52,20 @@ export default function Login({ onClose }) { // Add onClose prop
           }}
         >
           {/* Close Button */}
-          <div className="mb-6">
+          {/* <div className="mb-6">
             <button
               onClick={handleClose}
               className="flex items-center justify-center w-10 h-10 rounded-full bg-black hover:bg-gray-800 transition-all duration-200"
             >
               <X className="text-white w-6 h-6" />
             </button>
-          </div>
+          </div> */}
 
           <div
             className="text-4xl font-bold mb-8 tracking-tight"
             style={{ color: '#FF6B6B' }}
           >
-            Benzo
+            CrateEasy
           </div>
 
           <h1 className="text-3xl font-bold leading-tight mb-8">
@@ -118,9 +118,9 @@ export default function Login({ onClose }) { // Add onClose prop
           </p>
 
           {/* Mobile App Store Badges */}
-          <div className="lg:hidden mt-8">
+          <div className="md:hidden mt-8">
             <p className="text-center text-sm opacity-80 mb-4">
-              Download the Benzo App
+              Download the CrateEasy App
             </p>
             <div className="flex flex-col gap-3">
               <div className="flex items-center gap-3 px-4 py-3 rounded-lg text-white text-sm cursor-pointer hover:transform hover:-translate-y-1 transition-transform bg-black bg-opacity-20 backdrop-blur-sm border border-white border-opacity-20">
@@ -160,7 +160,7 @@ export default function Login({ onClose }) { // Add onClose prop
         </div>
 
         {/* Right Section - Hidden on mobile */}
-        <div className="flex-1 p-12 flex-col items-center justify-center text-center bg-white bg-opacity-95 hidden lg:flex">
+        <div className="flex-1 p-12 flex-col items-center justify-center text-center bg-white bg-opacity-95 hidden md:flex">
           <div className="relative mb-6">
             {/* Phone Illustration */}
             <div
@@ -174,10 +174,10 @@ export default function Login({ onClose }) { // Add onClose prop
                 }}
               >
                 <div
-                  className="text-white text-3xl font-bold"
+                  className="text-white text-xl font-bold"
                   style={{ fontFamily: 'serif' }}
                 >
-                  B
+                  Crate <span>Easy</span>
                 </div>
               </div>
             </div>
@@ -208,7 +208,7 @@ export default function Login({ onClose }) { // Add onClose prop
           </h2>
           <h2 className="text-2xl font-bold text-gray-800 mb-2">& easier</h2>
           <h2 className="text-2xl font-bold text-gray-800 mb-3">everytime</h2>
-          <p className="text-gray-600 text-base mb-6">with the Benzo App</p>
+          <p className="text-gray-600 text-base mb-6">with the CrateEasy App</p>
 
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="flex items-center gap-2 px-4 py-2 rounded-lg text-white text-xs cursor-pointer hover:transform hover:-translate-y-1 transition-transform bg-black">

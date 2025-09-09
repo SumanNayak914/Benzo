@@ -26,7 +26,7 @@ const coldDrinkBrands = [
   {
     name: "Sprite",
     img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ34wrQ3V06hwBZdmCnQB-PPWC1ctg2nzB8bXCZtjmwZx5RM28I3l5vYJw5&s=10",
-    bgColor: "bg-green-500", // Sprite green theme
+    bgColor: "bg-[#00A850]", // Sprite green theme
     subItems: [
       { name: "Sprite Can", img: "https://assets.hyperpure.com/data/images/products/4875369379be09449c12d23bee06a759.jpg" },
       { name: "Sprite Zero", img: "https://www.bbassets.com/media/uploads/p/xxl/40052141_2-sprite-soft-drink-zero-sugar-with-natural-lemon-flavour.jpg" },

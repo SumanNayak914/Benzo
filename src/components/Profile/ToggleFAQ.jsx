@@ -65,7 +65,7 @@ export default function FAQPage() {
       solutions: [
         {
           question: "How to provide feedback?",
-          answer: "You can rate your order experience in the app or email us your feedback at feedback@zepto.com"
+          answer: "You can rate your order experience in the app or email us your feedback at feedback@Crateeasy.com"
         },
         {
           question: "How to report an issue?",
@@ -150,10 +150,10 @@ export default function FAQPage() {
       ]
     },
     {
-      title: "Zepto Super Saver",
+      title: "Crateeasy Super Saver",
       solutions: [
         {
-          question: "What is Zepto Super Saver?",
+          question: "What is Crateeasy Super Saver?",
           answer: "A premium membership that offers exclusive discounts, free delivery, and priority customer support."
         },
         {
@@ -167,10 +167,10 @@ export default function FAQPage() {
       ]
     },
     {
-      title: "Zepto Daily",
+      title: "Crateeasy Daily",
       solutions: [
         {
-          question: "What is Zepto Daily?",
+          question: "What is Crateeasy Daily?",
           answer: "Subscribe to daily essentials like milk, bread, and groceries for automatic delivery at your convenience."
         },
         {

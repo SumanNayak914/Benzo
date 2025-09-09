@@ -15,7 +15,7 @@ const MobileHeader = ({
   setIsCartOpen 
 }) => {
   const mobileScrollRef = useRef(null);
-  const [activeZepto, setActiveZepto] = useState('Benzo');
+  const [activeZepto, setActiveZepto] = useState('CrateEasy');
   const [isLocationOpen, setIsLocationOpen] = useState(false); // Location modal state
   const navigate = useNavigate();
 
@@ -148,14 +148,14 @@ const MobileHeader = ({
             <div className="bg-white rounded-full p-1 w-72 max-w-full">
               <div className="flex">
                 <button
-                  onClick={() => setActiveZepto('Benzo')}
+                  onClick={() => setActiveZepto('CrateEasy')}
                   className={`flex-1 py-2.5 px-6 rounded-full font-semibold text-sm transition-all duration-300 ${
-                    activeZepto === 'Benzo'
+                    activeZepto === 'CrateEasy'
                       ? 'bg-blue-600 text-white shadow-lg'
                       : `text-gray-600 hover:text-blue-600 ${currentMobileCategory?.textColor}`
                   }`}
                 >
-                  Benzo
+                  CrateEasy
                 </button>
                 <button
                   onClick={() => setActiveZepto('fresh-cold')}
@@ -165,7 +165,7 @@ const MobileHeader = ({
                       : 'text-green-600 hover:text-green-700'
                   }`}
                 >
-                  Benzo Fresh & Cold
+                  CrateEasy Fresh & Cold
                 </button>
               </div>
             </div>

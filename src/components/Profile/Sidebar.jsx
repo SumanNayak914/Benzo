@@ -23,7 +23,7 @@ const Sidebar = ({ activeComponent, setActiveComponent }) => {
               <span className="bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded">daily</span>
             </div>
             <p className="text-sm mb-3">
-              You would potentially save <span className="font-bold">₹500</span> per month with Zepto Daily
+              You would potentially save <span className="font-bold">₹500</span> per month with CrateEasy Daily
             </p>
             <button className="bg-yellow-400 text-black px-4 py-2 rounded-lg text-sm font-semibold hover:bg-yellow-300 transition-colors flex items-center">
               Get daily <span className="ml-1">→</span>
@@ -36,7 +36,7 @@ const Sidebar = ({ activeComponent, setActiveComponent }) => {
           </div>
         </div>
 
-        {/* Zepto Cash & Gift Card */}
+        {/* CrateEasy Cash & Gift Card */}
         <div 
           className="border border-gray-200 rounded-lg p-4 cursor-pointer hover:bg-gray-50 transition-colors"
           onClick={() => setActiveComponent('balance')}
@@ -44,7 +44,7 @@ const Sidebar = ({ activeComponent, setActiveComponent }) => {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <Gift className="h-5 w-5 text-purple-500" />
-              <span className="text-sm font-medium text-gray-900">Zepto Cash & Gift Card</span>
+              <span className="text-sm font-medium text-gray-900">CrateEasy Cash & Gift Card</span>
             </div>
             <span className="text-gray-400">→</span>
           </div>
@@ -148,9 +148,9 @@ const Sidebar = ({ activeComponent, setActiveComponent }) => {
           </div>
         </div>
 
-        {/* Zepto Logo */}
+        {/* CrateEasy Logo */}
         <div className="text-center">
-          <span className="text-2xl font-bold text-gray-400 tracking-wider">zepto</span>
+          <span className="text-2xl font-bold text-gray-400 tracking-wider">CrateEasy</span>
         </div>
       </div>
     </div>

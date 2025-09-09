@@ -1,7 +1,7 @@
 import React from "react";
 
 import BrandCategory from "../components/home/BrandCategory";
-import Poster from "../components/home/Poster";
+// import Poster from "../components/home/Poster";
 import BrandDeals from "../components/home/BrandDeals";
 import Maaza from "../components/home/Maaza";
 import RedBullSlider from "../components/home/RedBull";
@@ -18,9 +18,10 @@ const Home = () => {
   return (
     <div>
       <BrandCategory />
-      <Poster />
-      <BrandDeals />
+      {/* <Poster /> */}
       <ImageSlider/>
+      <BrandDeals />
+      
       <Maaza />
       <RedBullSlider />
       <Cocacola />

@@ -33,7 +33,7 @@ const CartDrawer = ({ isOpen, onClose }) => {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'tween', duration: 0.3 }}
-            className="fixed top-0 right-0 w-full md:w-96 h-full bg-gray-100 z-50 shadow-xl overflow-y-auto"
+            className="fixed top-0 right-0 w-full md:w-96 h-full bg-gray-100 z-50 shadow-xl overflow-y-auto scrollbar-hide"
           >
             {/* Close button overlay */}
             <button 
