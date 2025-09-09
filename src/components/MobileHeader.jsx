@@ -145,7 +145,7 @@ const MobileHeader = ({
         <div className={`${currentMobileCategory ? currentMobileCategory.headerBg : 'bg-blue-100'} px-4 pt-4 pb-2 transition-colors duration-300`}>
           
           <div className="flex justify-center mb-4">
-            <div className="bg-white rounded-full p-1 w-72 max-w-full">
+            <div className="bg-white rounded-full p-1 w-80 max-w-full">
               <div className="flex">
                 <button
                   onClick={() => setActiveZepto('CrateEasy')}
@@ -159,7 +159,7 @@ const MobileHeader = ({
                 </button>
                 <button
                   onClick={() => setActiveZepto('fresh-cold')}
-                  className={`flex-1 py-2.5 px-4 rounded-full font-medium text-sm transition-all duration-300 whitespace-nowrap ${
+                  className={`flex-1  py-2.5 px-4 rounded-full font-medium text-sm transition-all duration-300 whitespace-nowrap ${
                     activeZepto === 'fresh-cold'
                       ? 'bg-green-600 text-white shadow-lg'
                       : 'text-green-600 hover:text-green-700'
