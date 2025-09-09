@@ -134,7 +134,7 @@ const DesktopHeader = ({
               >
                 CrateEasy
               </div>
-              <div className="bg-green-100 text-green-600 px-3 py-1.5 rounded-full text-xs font-medium">
+              <div className="bg-green-100 text-green-600 px-3 py-1.5 rounded-full text-xs font-medium md:hidden lg:flex">
                 Fresh & Cold
               </div>
             </div>
